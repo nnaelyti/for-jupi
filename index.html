@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>Happy Birthday, Javier Eric Prabowo</title>
+<meta name="description" content="Sebuah kejutan ulang tahun untuk Javier Eric Prabowo" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient sky layer, present through the whole experience -->
+  <div class="sky" aria-hidden="true">
+    <div class="cloud cloud--1"></div>
+    <div class="cloud cloud--2"></div>
+    <div class="cloud cloud--3"></div>
+    <div class="cloud cloud--4"></div>
+    <div class="stars" id="starsLayer"></div>
+    <canvas id="particleCanvas"></canvas>
+  </div>
+
+  <!-- ============ SCENE 1 : OPENING ============ -->
+  <section id="scene-opening" class="scene scene--opening is-active">
+    <div class="glass-card opening-card">
+      <p class="eyebrow">Untuk Javier Eric Prabowo</p>
+      <h1 class="opening-title">
+        Seseorang telah menyiapkan<br />
+        <span class="highlight">sebuah kejutan kecil</span> untukmu.
+      </h1>
+      <button id="btnStart" class="btn btn--primary">
+        <span>Tap Untuk Memulai</span>
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 2 : LOADING ============ -->
+  <section id="scene-loading" class="scene scene--loading">
+    <div class="glass-card loading-card">
+      <div class="loading-ring" aria-hidden="true">
+        <svg viewBox="0 0 100 100">
+          <circle class="loading-ring__bg" cx="50" cy="50" r="44"></circle>
+          <circle class="loading-ring__fg" id="loadingRingFg" cx="50" cy="50" r="44"></circle>
+        </svg>
+        <span class="loading-percent" id="loadingPercent">0%</span>
+      </div>
+      <p class="loading-text" id="loadingText">Mempersiapkan kejutan...</p>
+      <div class="loading-bar">
+        <div class="loading-bar__fill" id="loadingBarFill"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 3 : VERIFICATION ============ -->
+  <section id="scene-verification" class="scene scene--verification">
+    <div class="glass-card verification-card" id="verificationCard">
+      <p class="eyebrow">Verifikasi Ulang Tahun</p>
+      <h2 class="verification-title">Siapa yang hari ini sedang berulang tahun?</h2>
+      <div class="verification-options" id="verificationOptions">
+        <button class="option-btn" data-correct="false">Orangtuaku</button>
+        <button class="option-btn" data-correct="false">Epepku</button>
+        <button class="option-btn" data-correct="true">Javier Eric Prabowo</button>
+      </div>
+      <p class="verification-feedback" id="verificationFeedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 4 : BIRTHDAY TITLE ============ -->
+  <section id="scene-birthday" class="scene scene--birthday">
+    <div class="birthday-content">
+      <p class="eyebrow eyebrow--fade-in">Hari ini adalah harinya</p>
+      <h2 class="birthday-huge">
+        <span class="line line--1">Happy Birthday</span>
+        <span class="line line--2" id="typedName"></span>
+        <span class="type-cursor" id="typeCursor">|</span>
+      </h2>
+      <button class="btn btn--ghost btn--next" id="btnToEnvelope">
+        <span>Buka Suratnya</span>
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 5+6 : ENVELOPE & LETTER ============ -->
+  <section id="scene-envelope" class="scene scene--envelope">
+    <div class="envelope-stage">
+      <p class="envelope-hint" id="envelopeHint">Ketuk amplopnya</p>
+
+      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Buka amplop">
+        <div class="envelope__back"></div>
+        <div class="envelope__letter" id="envelopeLetter">
+          <div class="letter-paper">
+            <p class="letter-kicker">Untuk Javier,</p>
+            <p class="letter-body">
+              Selamat ulang tahun jupi.
+              <br /><br />
+              Semoga di usia yang ke-16 ini kamu selalu diberikan kesehatan, kebahagiaan, semangat dalam mengejar cita-cita, dan dipertemukan dengan banyak hal baik.
+              <br /><br />
+              Terima kasih sudah menjadi pribadi yang baik. Tetap jadi dirimu sendiri.
+              <br /><br />
+              Semoga semua impianmu perlahan menjadi kenyataan. Selamat menikmati hari spesialmu.
+              <br /><br />
+              <span class="letter-signoff">Happy Birthday bb.</span>
+            </p>
+          </div>
+        </div>
+        <div class="envelope__flap"></div>
+        <div class="envelope__front"></div>
+        <div class="envelope__seal">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 21s-7.5-4.6-10-9C.3 8.4 2 4 6 4c2.2 0 3.6 1.2 6 4 2.4-2.8 3.8-4 6-4 4 0 5.7 4.4 4 8-2.5 4.4-10 9-10 9z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+
+      <button class="btn btn--ghost btn--next is-hidden" id="btnToGallery">
+        <span>Lihat Galery</span>
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 7 : GALLERY ============ -->
+  <section id="scene-gallery" class="scene scene--gallery">
+    <p class="eyebrow">Sekeping Galeriku</p>
+    <h2 class="section-title">Galeri Kecil Dariku</h2>
+
+    <div class="gallery-slider">
+      <button class="gallery-nav gallery-nav--prev" id="galleryPrev" aria-label="Foto sebelumnya">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="gallery-track-wrap">
+        <ul class="gallery-track" id="galleryTrack"></ul>
+      </div>
+
+      <button class="gallery-nav gallery-nav--next" id="galleryNext" aria-label="Foto berikutnya">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="gallery-dots" id="galleryDots"></div>
+
+    <button class="btn btn--ghost btn--next" id="btnToCake">
+      <span>Menuju Kue Ulang Tahun</span>
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </section>
+
+  <!-- Lightbox for gallery -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Tutup">&times;</button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="Foto diperbesar" />
+  </div>
+
+  <!-- ============ SCENE 8 : CAKE ============ -->
+  <section id="scene-cake" class="scene scene--cake">
+    <p class="eyebrow">Waktunya Meniup Lilin</p>
+    <h2 class="section-title">Ketuk Lilinnya, Lalu Buat Permohonan</h2>
+
+    <div class="cake-stage">
+      <div class="cake" id="cake">
+        <div class="candle" id="candle" role="button" tabindex="0" aria-label="Tiup lilin">
+          <div class="flame" id="flame"></div>
+          <div class="wick"></div>
+        </div>
+        <div class="cake__top"></div>
+        <div class="cake__drip"></div>
+        <div class="cake__layer cake__layer--mid"></div>
+        <div class="cake__layer cake__layer--base"></div>
+        <div class="cake__plate"></div>
+      </div>
+      <p class="wish-text" id="wishText">Make A Wish</p>
+    </div>
+
+    <button class="btn btn--ghost btn--next is-hidden" id="btnToClosing">
+      <span>Lanjutkan</span>
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </section>
+
+  <!-- ============ SCENE 9 : CLOSING ============ -->
+  <section id="scene-closing" class="scene scene--closing">
+    <canvas id="fireworksCanvas"></canvas>
+    <div class="glass-card closing-card">
+      <p class="eyebrow">Terima Kasih</p>
+      <h2 class="closing-title">
+        Karena Sudah Menjadi<br />
+        <span class="highlight">Javier Eric Prabowo</span>
+      </h2>
+      <p class="closing-sub">Semoga harimu menyenangkan.</p>
+      <p class="closing-made">Nikmati Hari Spesialmu 🙌🙌</p>
+      <button class="btn btn--primary" id="btnReplay">Putar Ulang</button>
+    </div>
+  </section>
+
+  <!-- ============ AUDIO PLAYER (persistent, bottom) ============ -->
+  <div class="audio-player is-hidden" id="audioPlayer">
+    <button class="audio-btn" id="audioToggle" aria-label="Putar atau jeda musik">
+      <svg class="icon-play" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+      <svg class="icon-pause is-hidden" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>
+    </button>
+    <input type="range" id="audioVolume" class="audio-volume" min="0" max="1" step="0.01" value="0.6" aria-label="Volume musik" />
+  </div>
+
+  <audio id="bgMusic" src="assets/music.mp3" loop preload="none"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
